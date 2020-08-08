@@ -36,7 +36,7 @@ export default function Header(props) {
     <React.Fragment>
       <ElevationScroll>
         <AppBar position="fixed" color="primary">
-            <Toolbar disableGutters>
+            <Toolbar>
               <Typography variant="h3">
                 Materials
               </Typography>
