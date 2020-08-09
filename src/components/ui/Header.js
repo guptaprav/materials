@@ -150,6 +150,8 @@ export default function Header(props) {
   ]
 
   useEffect(() => {
+    const { value, selectedIdx, setValue, setSelectedIdx } = props;
+
     [...menuOptions, ...routes].forEach(route => {
       switch(window.location.pathname) {
         case `${route.link}`:
@@ -164,7 +166,7 @@ export default function Header(props) {
           break;
       }
     })
-  }, [value, menuOptions, selectedIdx, routes])
+  }, [props, menuOptions, routes])
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
