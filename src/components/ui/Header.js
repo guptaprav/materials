@@ -127,7 +127,7 @@ export default function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const matches = useMediaQuery(theme.breakpoints.down('md'));
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [value, setValue] = useState(0);
