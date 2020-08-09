@@ -214,6 +214,8 @@ export default function Header(props) {
         variant="contained"
         color="secondary"
         className={classes.button}
+        component={Link}
+        to="/estimate"
         onClick={() => {setValue(5)}}
       >
         Free Estimate
