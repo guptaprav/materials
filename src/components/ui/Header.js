@@ -73,18 +73,53 @@ export default function Header(props) {
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
+  const [selectedIdx, setSelectedIdx] = useState(0);
 
   useEffect(() => {
-    if (window.location.pathname === '/' && value !== 0) {
-      setValue(0);
-    } else if (window.location.pathname === '/product' && value !== 1) {
-      setValue(1);
-    } else if (window.location.pathname === '/team' && value !== 2) {
-      setValue(2);
-    } else if (window.location.pathname === '/about' && value !== 3) {
-      setValue(3);
-    } else if (window.location.pathname === '/contact' && value !== 4) {
-      setValue(4);
+    switch(window.location.pathname) {
+      case '/':
+        if (value !== 0) setValue(0);
+        break;
+      case '/product':
+        if (value !== 1) {
+          setValue(1);
+          setSelectedIdx(0);
+        }
+        break;
+      case '/team':
+        if (value !== 2) setValue(2);
+        break;
+      case '/about':
+        if (value !== 3) setValue(3);
+        break;
+      case '/contact':
+        if (value !== 4) setValue(4);
+        break;
+      case '/custom':
+        if (value !== 1) {
+          setValue(1);
+          setSelectedIdx(1);
+        }
+        break;
+      case '/mobile':
+        if (value !== 1) {
+          setValue(1);
+          setSelectedIdx(2);
+        }
+        break;
+      case '/web':
+        if (value !== 1) {
+          setValue(1);
+          setSelectedIdx(3);
+        }
+        break;
+      case '/estimate':
+        if(value !== 5) {
+          setValue(5);
+        }
+        break;
+      default:
+        break;
     }
   }, [value])
 
@@ -97,10 +132,23 @@ export default function Header(props) {
     setOpen(true);
   }
 
+  const handleMenuItemClick = (e, idx) => {
+    setAnchorEl(null);
+    setOpen(false);
+    setSelectedIdx(idx);
+  }
+
   const handleClose = (e) => {
     setAnchorEl(null);
     setOpen(false);
   }
+
+  const menuOptions = [
+    { name: 'Product', link: '/product' },
+    { name: 'Custom', link: '/custom' },
+    { name: 'Mobile', link: '/mobile' },
+    { name: 'Web', link: '/web' }
+  ]
 
   return (
     <React.Fragment>
@@ -150,38 +198,26 @@ export default function Header(props) {
                 MenuListProps={{onMouseLeave: handleClose}}
                 elevation={0}
               >
-                <MenuItem
-                  onClick={() => {handleClose(); setValue(1)}}
-                  component={Link}
-                  to="/product"
-                  classes={{root: classes.menuItem}}
-                >
-                  Product
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {handleClose(); setValue(1)}}
-                  component={Link}
-                  to="/custom"
-                  classes={{root: classes.menuItem}}
-                >
-                  Custom
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {handleClose(); setValue(1)}}
-                  component={Link}
-                  to="/mobile"
-                  classes={{root: classes.menuItem}}
-                >
-                  Mobile
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {handleClose(); setValue(1)}}
-                  component={Link}
-                  to="/web"
-                  classes={{root: classes.menuItem}}
-                >
-                  Web
-                </MenuItem>
+                {
+                  menuOptions.map((option, idx) => (
+                    <MenuItem
+                      key={option.name}
+                      selected={idx === selectedIdx && value===1}
+                      onClick={
+                        (event) => {
+                          handleMenuItemClick(event, idx);
+                          setValue(1);
+                          handleClose();
+                        }
+                      }
+                      component={Link}
+                      to={option.link}
+                      classes={{root: classes.menuItem}}
+                    >
+                      {option.name}
+                    </MenuItem>
+                  ))
+                  }
               </Menu>
             </Toolbar>
         </AppBar>
