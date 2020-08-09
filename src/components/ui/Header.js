@@ -128,12 +128,10 @@ export default function Header(props) {
   const theme = useTheme();
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const { value, selectedIdx, setValue, setSelectedIdx } = props;
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
-  const [selectedIdx, setSelectedIdx] = useState(0);
 
   const menuOptions = [
     { name: 'Product', link: '/product', activeIdx: 1, selectedIdx: 0 },
