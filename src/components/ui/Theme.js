@@ -5,8 +5,8 @@ const mOrange = '#FFBA60';
 export default createMuiTheme({
   palette: {
     common: {
-      inteliBlue: `${mBlue}`,
-      inteliOrange: `${mOrange}`
+      mBlue: `${mBlue}`,
+      mOrange: `${mOrange}`
     },
     primary: {
       main: `${mBlue}`
